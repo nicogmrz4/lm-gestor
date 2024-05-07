@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %} {% block title %}Hello LoginController!{%
+endblock %} {% block body %}
+<div class="w-lvw h-lvh flex items-center">
+  <div class="card w-96 bg-base-200 text-neutral-content shadow-md mx-auto">
+    {{ form_start(loginForm) }}
+    <div class="card-body items-center text-center gap-4">
+      {% if form_errors(loginForm) %}
+        <div role="alert" class="alert alert-error">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>Error! {{ form_errors(loginForm) }}</span>
+        </div>
+      {% endif %}
+      <h1 class="card-title text-center">Iniciar sesión</h1>
+      <label class="input input-bordered flex items-center gap-2">
+        <input
+          name="{{ field_name(loginForm.username) }}"
+          value="{{ field_value(loginForm.username) }}"
+          placeholder="{{ field_label(loginForm.username) }}"
+        />
+      </label>
+      <label class="input input-bordered flex items-center gap-2">
+        <input
+          type="password"
+          name="{{ field_name(loginForm.password) }}"
+          value="{{ field_value(loginForm.password) }}"
+          placeholder="{{ field_label(loginForm.password) }}"
+        />
+      </label>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        name="{{ field_name(loginForm.submit) }}"
+      >
+        {{ field_label(loginForm.submit) }}
+      </button>
+    </div>
+    {{ form_end(loginForm) }}
+  </div>
+</div>
+{% endblock %}
