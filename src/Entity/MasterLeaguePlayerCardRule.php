@@ -20,7 +20,7 @@ class MasterLeaguePlayerCardRule
     private ?int $price = null;
 
     #[ORM\Column]
-    private ?bool $oneceTime = null;
+    private ?bool $onceTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'playerCardRules')]
     #[ORM\JoinColumn(nullable: false)]
@@ -61,14 +61,14 @@ class MasterLeaguePlayerCardRule
         return $this;
     }
 
-    public function isOneceTime(): ?bool
+    public function isOnceTime(): ?bool
     {
-        return $this->oneceTime;
+        return $this->onceTime;
     }
 
-    public function setOneceTime(bool $oneceTime): static
+    public function setOnceTime(bool $onceTime): static
     {
-        $this->oneceTime = $oneceTime;
+        $this->onceTime = $onceTime;
 
         return $this;
     }
