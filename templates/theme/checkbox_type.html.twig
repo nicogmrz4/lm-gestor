@@ -1,0 +1,14 @@
+<div class="form-control max-w-fit">
+  <label class="label cursor-pointer">
+    <span class="label-text mr-4">{{ label }}</span>
+    <input
+      id="{{ id }}"
+      type="checkbox"
+      class="checkbox"
+      name="{{ full_name }}"
+      {% for key, value in attr %}
+        {{ key }}="{{ value }}"
+      {% endfor %}
+    />
+  </label>
+</div>
