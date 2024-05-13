@@ -1,0 +1,52 @@
+<dialog
+  {{ stimulus_controller('modal--player-card-rule') }}
+  data-default-form-action="{{ playerCardRuleForm.vars.action }}"
+  data-action="crud--player-card-rule:onEdit@window->modal--player-card-rule#onEdit crud--player-card-rule:onNew@window->modal--player-card-rule#onNew"
+  id="card_type_rule_modal"
+  class="modal"
+>
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <h3 class="font-bold text-lg" {{ stimulus_target('modal--player-card-rule', 'modalTitle') }}>
+      Nueva regla de tipo de carta
+    </h3>
+    <form
+      id="{{ playerCardRuleForm.vars.id }}"
+      name="{{ playerCardRuleForm.vars.full_name }}"
+      action="{{ playerCardRuleForm.vars.action }}"
+      method="{{ playerCardRuleForm.vars.method }}"
+      {{ stimulus_target('modal--player-card-rule', 'form') }}
+    >
+      {{ 
+        form_row(playerCardRuleForm.cardType, {
+           attr: stimulus_target('modal--player-card-rule', 'cardTypeInput').toArray() 
+        }) 
+      }}
+      {{ 
+        form_row(playerCardRuleForm.price, {
+          attr: stimulus_target('modal--player-card-rule', 'priceInput').toArray() 
+        }) 
+      }}
+      {{ 
+        form_row(playerCardRuleForm.onceTime, {
+           attr: stimulus_target('modal--player-card-rule', 'onceTimeInput').toArray() 
+        }) 
+      }}
+      {{ form_row(playerCardRuleForm._token) }}
+    </form>
+    <div class="modal-action">
+      {{
+        form_row(playerCardRuleForm.submit, {
+          attr: {
+            form: playerCardRuleForm.vars.id,
+            ...stimulus_target('modal--player-card-rule', 'submitBtn').toArray()
+          }
+        })
+      }}
+    </div>
+  </div>
+</dialog>

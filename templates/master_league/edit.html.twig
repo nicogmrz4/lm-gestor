@@ -1,0 +1,16 @@
+{% extends "layout/main.html.twig" %} {% block title %}Edit Master League{%
+endblock %} {% block drawer_content %}
+{{ form_start(editMLForm) }}
+{{ form_row(editMLForm.title) }}
+{{ form_row(editMLForm.minPlayers) }}
+{{ form_row(editMLForm.playersLimit) }}
+{{ form_row(editMLForm.initialBudget) }}
+{{
+  form_row(editMLForm.submit, {
+    label: "Guardar cambios",
+    attr: { class: "btn btn-primary" }
+  })
+}}
+{{ form_row(editMLForm._token) }}
+{{ form_end(editMLForm) }}
+{% endblock drawer_content %}

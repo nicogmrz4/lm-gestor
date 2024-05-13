@@ -40,4 +40,20 @@ class MasterLeaguePlayerPriceRuleRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findOneByRangeRatingRange(MasterLeaguePlayerPriceRule $playerPriceRule): ?MasterLeaguePlayerPriceRule
+    {
+        return $this->createQueryBuilder('m')
+            ->where('(m.ratingFrom BETWEEN :ratingFrom AND :ratingTo)')
+            ->orWhere('(m.ratingTo BETWEEN :ratingFrom AND :ratingTo)')
+            ->orWhere('(m.ratingFrom <= :ratingFrom AND m.ratingTo >= :ratingTo)')
+            ->andWhere('m.id != :id')
+            ->setParameter('ratingFrom', $playerPriceRule->getRatingFrom())
+            ->setParameter('ratingTo', $playerPriceRule->getRatingTo())
+            ->setParameter('id', $playerPriceRule->getId())
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

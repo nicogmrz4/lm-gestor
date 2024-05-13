@@ -1,0 +1,25 @@
+<dialog id="my_modal_1" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Nueva Liga Master</h3>
+    <p class="py-4">Complete el formulario</p>
+    <form
+      id="{{ newMLForm.vars.id }}"
+      name="{{ newMLForm.vars.name }}"
+      action="{{ newMLForm.vars.action }}"
+      method="{{ newMLForm.vars.method }}"
+    >
+      {{ form_row(newMLForm.title) }}
+      {{ form_row(newMLForm.initialBudget) }}
+      {{ form_row(newMLForm.minPlayers) }}
+      {{ form_row(newMLForm.playersLimit) }}
+      {{ form_row(newMLForm._token) }}
+    </form>
+    <div class="modal-action">
+      {{
+        form_row(newMLForm.submit, {
+          attr: { class: "btn btn-primary", form: newMLForm.vars.id }
+        })
+      }}
+    </div>
+  </div>
+</dialog>

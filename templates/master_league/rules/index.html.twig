@@ -1,0 +1,121 @@
+{% extends "layout/main.html.twig" %} {% block drawer_content_title %}REGLAS DE
+CARTAS - {{ ml.title }}{% endblock %} {% block drawer_content %}
+{% for message in app.flashes('error') %}
+<div class="py-4">{% include "components/error_alert.html.twig" %}</div>
+{% endfor %}
+{% for message in app.flashes('success') %}
+<div class="py-4">{% include "components/success_alert.html.twig" %}</div>
+{% endfor %}
+<div class="flex gap-8">
+  <!-- Player rating price rules -->
+  <div class="flex-1" {{ stimulus_controller('crud--player-price-rule') }}>
+    <div class="flex justify-between items-center mb-5">
+      <h3 class="text-lg mb-2">Reglas de media de carta</h3>
+      <button
+        data-action="crud--player-price-rule#new"
+        class="btn btn-primary"
+        onclick="price_rule_modal.showModal()"
+      >
+        Añadir regla de media
+      </button>
+    </div>
+    <table class="table">
+      <thead>
+        <tr class="text-center">
+          <th class="text-left">Rango</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in playerPriceRules %}
+        <tr id="ppr-{{ row.id }}">
+          <td>{{ row.ratingFrom }} - {{ row.ratingTo }}</td>
+          <td class="text-center">{{ row.price | format_currency('USD', { fraction_digit: 0 }) | replace({',' : '.'}) }}</td>
+          <td class="text-center">
+            <button
+              class="btn btn-info btn-xs"
+              onclick="price_rule_modal.showModal()"
+              data-id="{{ row.id }}"
+              data-rating-from="{{ row.ratingFrom }}"
+              data-rating-to="{{ row.ratingTo }}"
+              data-price="{{ row.price }}"
+              data-form-action="{{ path('edit_ml_player_price_rule', { masterLeagueId: ml.id, id: row.id }) }}"
+              {{ stimulus_action('crud--player-price-rule', 'edit') }}
+            >
+              Editar
+            </button>
+            <button 
+              class="btn btn-error btn-xs" 
+              onclick="delete_player_price_rule_confirm.showModal()"
+              data-form-action="{{ path('delete_ml_player_price_rule', { masterLeagueId: ml.id, id: row.id }) }}"
+              {{ stimulus_action('crud--player-price-rule', 'delete') }}
+              >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- Player card price rules -->
+  <div class="flex-1" {{ stimulus_controller('crud--player-card-rule') }}>
+    <div class="flex justify-between items-center mb-5">
+      <h3 class="text-lg mb-2">Reglas de tipo de carta</h3>
+      <button
+        class="btn btn-primary"
+        data-action="crud--player-card-rule#new"
+        onclick="card_type_rule_modal.showModal()"
+      >
+        Añadir regla de tipo
+      </button>
+    </div>
+    <table class="table">
+      <thead>
+        <tr class="text-center">
+          <th class="text-left">Tipo</th>
+          <th>Por unica vez</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in playerCardRules %}
+        <tr>
+          <td>{{ row.cardType }}</td>
+          <td class="text-center">{{ row.onceTime ? 'Si' : 'No' }}</td>
+          <td class="text-center">{{ row.price | format_currency('USD', { fraction_digit: 0 }) }}</td>
+          <td class="text-center">
+            <button
+              class="btn btn-info btn-xs"
+              data-id="{{ row.id }}"
+              data-card-type="{{ row.cardType }}"
+              data-once-time="{{ row.onceTime }}"
+              data-price="{{ row.price }}"
+              data-action="crud--player-card-rule#edit"
+              data-form-action="{{ path('edit_ml_player_card_rule', { masterLeagueId: ml.id, id: row.id })  }}"
+              onclick="card_type_rule_modal.showModal()"
+            >
+              Editar
+            </button>
+            <button  
+              class="btn btn-error btn-xs"
+              onclick="delete_player_card_rule_confirm.showModal()"
+              data-form-action="{{ path('delete_ml_player_card_rule', { masterLeagueId: ml.id, id: row.id }) }}"
+              {{ stimulus_action('crud--player-card-rule', 'delete') }}
+              >
+              Eliminar</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% include "master_league/rules/confirms/delete_player_price_rule_confirm.html.twig" %} 
+{% include "master_league/rules/confirms/delete_player_card_rule_confirm.html.twig" %} 
+{% include "master_league/rules/modals/player_price_rule_modal.html.twig" %} 
+{% include "master_league/rules/modals/player_card_rule_modal.html.twig" %} 
+{% endblock drawer_content %}

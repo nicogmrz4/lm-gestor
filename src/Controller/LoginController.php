@@ -23,6 +23,7 @@ class LoginController extends AbstractController
     {
         $user = $this->getUser();
 
+        if (!is_null($user)) return $this->redirectToRoute('ml_home');
         $loginForm = $this->createForm(LoginType::class, null, [
             'action' => $this->generateUrl('app_login'),
             'method' => 'POST',

@@ -1,0 +1,34 @@
+{% extends 'layout/main.html.twig' %} {# {% block title %}Hello
+HomeController!{% endblock %} #} {% block drawer_content %} 
+{% for message in app.flashes('success') %}
+  {% include "components/success_alert.html.twig" %}
+{% endfor %}
+
+<button class="btn btn-primary float-right" onclick="my_modal_1.showModal()">
+  Crear nueva Liga Master
+</button>
+
+{% include "home/master_league_dialog.html.twig" %}
+<div class="flex flex-wrap gap-6">
+  {% for ml in allMls %}
+  <div class="card w-96 bg-base-200 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">{{ ml.title }}</h2>
+      <div class="card-actions justify-end">
+        <a
+          href="{{ path('edit_ml', { id: ml.id }) }}"
+          class="btn btn-accent"
+          >Editar</a
+        >
+        <a
+          href="{{ path('view_ml', { id: ml.id }) }}"
+          class="btn btn-primary"
+          >Acceder</a
+        >
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+{% endblock %}

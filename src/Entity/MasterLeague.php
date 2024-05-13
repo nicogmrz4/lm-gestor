@@ -56,6 +56,8 @@ class MasterLeague
         $this->teams = new ArrayCollection();
         $this->playerPriceRules = new ArrayCollection();
         $this->playerCardRules = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable;
+        $this->updatedAt = new \DateTimeImmutable;
     }
 
     public function getId(): ?int

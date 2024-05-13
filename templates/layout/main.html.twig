@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %} {% block body %}
+<div class="drawer">
+  <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+    {% include 'layout/navbar.html.twig' %}
+    <div style="max-width: 1200px" class="mx-auto">
+      <div class="flex w-full justify-end gap-4 my-6">
+        {% block drawer_content_actions %} {% endblock %}
+      </div>
+      <h1 class="text-4xl mb-8">
+        {% block drawer_content_title %} {% endblock %}
+      </h1>
+      {% block drawer_content %}{% endblock %}
+    </div>
+  </div>
+  <div class="drawer-side">
+    <label
+      for="my-drawer"
+      aria-label="close sidebar"
+      class="drawer-overlay"
+    ></label>
+    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+      <!-- Sidebar content here -->
+      <li><a>Sidebar Item 1</a></li>
+      <li><a>Sidebar Item 2</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock body %}

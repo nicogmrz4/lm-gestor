@@ -1,0 +1,54 @@
+<dialog
+  {{ stimulus_controller('modal--player-price-rule') }} }}
+  data-default-form-action="{{ playerPriceRuleForm.vars.action }}"
+  data-action="crud--player-price-rule:onEdit@window->modal--player-price-rule#onEdit crud--player-price-rule:onNew@window->modal--player-price-rule#onNew"
+  id="price_rule_modal"
+  class="modal"
+>
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <h3 class="font-bold text-lg" {{ stimulus_target('modal--player-price-rule', 'modalTitle')  }}>
+      Nueva regla
+    </h3>
+    <form
+      id="{{ playerPriceRuleForm.vars.id }}"
+      name="{{ playerPriceRuleForm.vars.full_name }}"
+      action="{{ playerPriceRuleForm.vars.action }}"
+      method="{{ playerPriceRuleForm.vars.method }}"
+      {{ stimulus_target('modal--player-price-rule', 'form') }}
+    >
+      <div class="flex gap-4 items-center">
+        {{ 
+          form_row(playerPriceRuleForm.ratingFrom, { 
+            attr: stimulus_target('modal--player-price-rule', 'ratingFromInput').toArray() 
+          }) 
+        }}
+        {{ 
+          form_row(playerPriceRuleForm.ratingTo, {
+           attr: stimulus_target('modal--player-price-rule', 'ratingToInput').toArray() 
+          }) 
+        }}
+      </div>
+      {{ 
+        form_row(playerPriceRuleForm.price, {
+           attr: stimulus_target('modal--player-price-rule', 'priceInput').toArray() 
+        }) 
+      }}
+      {{ form_row(playerPriceRuleForm._token) }}
+    </form>
+    <div class="modal-action">
+      {{
+        form_row(playerPriceRuleForm.submit, {
+          attr: {
+            form: playerPriceRuleForm.vars.id,
+            ...stimulus_target('modal--player-price-rule', 'submitBtn').toArray()
+          }
+        })
+      }}
+    </div>
+  </div>
+</dialog>
