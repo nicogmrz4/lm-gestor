@@ -52,6 +52,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->teams = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable;
+        $this->updatedAt = new \DateTimeImmutable;
     }
 
     public function getId(): ?int

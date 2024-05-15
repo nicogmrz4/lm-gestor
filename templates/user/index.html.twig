@@ -1,0 +1,72 @@
+{% extends 'layout/main.html.twig' %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block drawer_content_title %}Panel de administración de usuarios{% endblock %}
+
+{% block drawer_content_actions %}
+    <button 
+      class="btn btn-primary"
+      {{ stimulus_controller('crud--user') }}
+      {{ stimulus_action('crud--user', 'new') }} 
+      onclick="user_modal.showModal()">
+        Crear nuevo usuario
+    </button>
+{% endblock %}
+
+{% block drawer_content %}
+{% for message in app.flashes('error') %}
+  <div class="py-4">{% include "components/error_alert.html.twig" %}</div>
+{% endfor %}
+{% for message in app.flashes('success') %}
+  <div class="py-4">{% include "components/success_alert.html.twig" %}</div>
+{% endfor %}
+<div class="overflow-x-auto">
+    <table class="table border border-1 border-base-200" {{ stimulus_controller('crud--user') }}>
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre de usuario</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+            <tr>
+                <th>{{ user.id }}</th>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ 'ROLE_ADMIN' in user.roles ? 'Administrador' : 'Usuario' }}</td>
+                <td class="text-center">
+                    <button 
+                        class="btn btn-info btn-xs"
+                        data-id="{{ user.id }}"
+                        data-username="{{ user.username }}"
+                        data-email="{{ user.email }}"
+                        data-role-admin="{{ 'ROLE_ADMIN' in user.roles }}"
+                        {{ stimulus_action('crud--user', 'edit') }}
+                        data-form-action="{{ path('edit_user', { id: user.id }) }}"
+                        onclick="user_modal.showModal()"
+                    >Editar
+                    </button>
+                    <button 
+                      class="btn btn-error btn-xs"
+                      data-form-action="{{ path('delete_user', { id: user.id })  }}"
+                      data-username="{{ user.username }}"
+                      {{ stimulus_action('crud--user', 'delete') }}
+                      onclick="confirm_delete_user.showModal()"
+                    >Eliminar
+                    </button>
+                </td>          
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{{ render(path('create_user')) }}
+{% include "user/confirm_delete.html.twig" %}
+{% endblock %}

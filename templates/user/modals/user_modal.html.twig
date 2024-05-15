@@ -1,0 +1,44 @@
+<dialog 
+    id="user_modal" 
+    class="modal" 
+    {{ stimulus_controller('modal--user') }} 
+    data-action="crud--user:onEdit@window->modal--user#onEdit crud--user:onNew@window->modal--user#onNew"
+    data-default-form-action="{{ userForm.vars.action }}"
+    >
+    <div class="modal-box">
+        <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="font-bold text-lg" {{ stimulus_target('modal--user', 'modalTitle') }}>Crear nuevo usuario</h3>
+        <form
+        id="{{ userForm.vars.id }}"
+        name="{{ userForm.vars.full_name }}"
+        action="{{ userForm.vars.action }}"
+        method="{{ userForm.vars.method }}"
+        {{ stimulus_target('modal--user', 'form') }}
+      >
+            {{ form_row(userForm.username, {
+                attr: stimulus_target('modal--user', 'usernameInput').toArray()
+            }) }}
+            {{ form_row(userForm.email, {
+                attr: stimulus_target('modal--user', 'emailInput').toArray()
+            }) }}
+            {{ form_row(userForm.password, {
+                attr: stimulus_target('modal--user', 'passwordInput').toArray()
+            }) }}
+            {{ form_row(userForm.roleAdmin, {
+                attr: stimulus_target('modal--user', 'roleAdminInput').toArray()
+            }) }}
+            {{ form_row(userForm._token) }}
+        </form>
+        <div class="modal-action">
+            {{ form_row(userForm.submit, {
+                    attr: { 
+                    class: "btn btn-primary", 
+                    form: userForm.vars.id,
+                    ...stimulus_target('modal--user', 'submitBtn').toArray() 
+                } 
+            }) }}
+        </div>
+    </div>
+</dialog> 
