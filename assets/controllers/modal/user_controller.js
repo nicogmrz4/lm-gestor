@@ -17,7 +17,6 @@ export default class extends Controller {
     ];
 
     onEdit({ detail: { formAction, data } }) {
-        console.log(data);
         this.modalTitleTarget.innerHTML = this.EDIT_MODE_TITLE;
         this.formTarget.action = formAction;
         this.usernameInputTarget.value = data.username;

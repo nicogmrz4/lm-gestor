@@ -1,17 +1,17 @@
 <dialog 
-  {{ stimulus_controller('confirm--delete-player-card-rule') }}
-  data-action="crud--player-card-rule:onDelete@window->confirm--delete-player-card-rule#onDelete"
+  {{ stimulus_controller('confirm--delete') }}
+  data-action="crud--player-card-rule:onDelete@window->confirm--delete#onDelete"
   id="delete_player_card_rule_confirm" 
   class="modal">
   <div class="modal-box">
     <form id="close-delete-player-card-rule-confirm-form" method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-    <h3 class="font-bold text-lg">¿Seguro que queres proceder?</h3>
-    <p class="py-4">Una vez eliminado, no se podra revertir la acción.</p>
+    <h3 class="font-bold text-lg" {{ stimulus_target('confirm--delete', 'title') }}>¿Seguro que queres proceder?</h3>
+    <p class="py-4" {{ stimulus_target('confirm--delete', 'message') }}>Una vez eliminado, no se podra revertir la acción.</p>
     <form
       id="delete-player-card-rule-confirm-form"
-      {{ stimulus_target('confirm--delete-player-card-rule', 'form') }} 
+      {{ stimulus_target('confirm--delete', 'form') }} 
       action="" 
       method="post">
       <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}">
