@@ -48,6 +48,8 @@ CARTAS - {{ ml.title }}{% endblock %} {% block drawer_content %}
             <button 
               class="btn btn-error btn-xs" 
               onclick="delete_player_price_rule_confirm.showModal()"
+              data-rating-from="{{ row.ratingFrom }}"
+              data-rating-to="{{ row.ratingTo }}"
               data-form-action="{{ path('delete_ml_player_price_rule', { masterLeagueId: ml.id, id: row.id }) }}"
               {{ stimulus_action('crud--player-price-rule', 'delete') }}
               >
@@ -102,6 +104,7 @@ CARTAS - {{ ml.title }}{% endblock %} {% block drawer_content %}
             <button  
               class="btn btn-error btn-xs"
               onclick="delete_player_card_rule_confirm.showModal()"
+              data-card-type="{{ row.cardType }}"
               data-form-action="{{ path('delete_ml_player_card_rule', { masterLeagueId: ml.id, id: row.id }) }}"
               {{ stimulus_action('crud--player-card-rule', 'delete') }}
               >
