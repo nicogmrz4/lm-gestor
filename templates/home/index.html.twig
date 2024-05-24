@@ -4,9 +4,11 @@ HomeController!{% endblock %} #} {% block drawer_content %}
   {% include "components/success_alert.html.twig" %}
 {% endfor %}
 
-<button class="btn btn-primary float-right" onclick="my_modal_1.showModal()">
-  Crear nueva Liga Master
-</button>
+{% if is_granted('ROLE_ADMIN') %}
+  <button class="btn btn-primary float-right" onclick="my_modal_1.showModal()">
+    Crear nueva Liga Master
+  </button>
+{% endif %}
 
 {% include "home/master_league_dialog.html.twig" %}
 <div class="flex flex-wrap gap-6">
@@ -15,11 +17,13 @@ HomeController!{% endblock %} #} {% block drawer_content %}
     <div class="card-body">
       <h2 class="card-title">{{ ml.title }}</h2>
       <div class="card-actions justify-end">
-        <a
-          href="{{ path('edit_ml', { id: ml.id }) }}"
-          class="btn btn-accent"
-          >Editar</a
-        >
+        {% if is_granted('ROLE_ADMIN') %}
+          <a
+            href="{{ path('edit_ml', { id: ml.id }) }}"
+            class="btn btn-accent"
+            >Editar</a
+          >
+        {% endif %}
         <a
           href="{{ path('view_ml', { id: ml.id }) }}"
           class="btn btn-primary"

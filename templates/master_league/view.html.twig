@@ -1,14 +1,16 @@
 {% extends "layout/main.html.twig" %} 
 {% block drawer_content_actions %}
-<a href="{{ path('ml_rules', { id: ml.id }) }}" class="btn btn-accent btn-outline">
-  Reglas de cartas
-</a>
-<a class="btn btn-primary">
-  Participantes
-</a>
-<a href="{{ path('create_ml_invitation', { id: ml.id }) }}" class="btn btn-accent">
-  Crear invitación
-</a>
+  {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('ml_rules', { id: ml.id }) }}" class="btn btn-accent btn-outline">
+      Reglas de cartas
+    </a>
+    <a class="btn btn-primary">
+      Participantes
+    </a>
+    <a href="{{ path('create_ml_invitation', { id: ml.id }) }}" class="btn btn-accent">
+      Crear invitación
+    </a>
+  {% endif %}
 {% endblock %}
 
 {% block drawer_content_title %}{{ ml.title }}{% endblock %}

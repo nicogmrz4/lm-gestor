@@ -28,8 +28,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }        
+        - { path: ^/master-league/\d/(edit$|rules$|invitation|player-card-rules|player-price-rules), roles: ROLE_ADMIN }
+        - { path: ^/users, roles: ROLE_ADMIN }
         - { path: ^/, roles: IS_AUTHENTICATED }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:
     security:
