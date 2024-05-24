@@ -51,6 +51,12 @@ class MasterLeague
     #[ORM\OneToMany(targetEntity: MasterLeaguePlayerCardRule::class, mappedBy: 'masterLeague', orphanRemoval: true)]
     private Collection $playerCardRules;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'masterLeague')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
@@ -58,6 +64,7 @@ class MasterLeague
         $this->playerCardRules = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable;
         $this->updatedAt = new \DateTimeImmutable;
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,6 +229,33 @@ class MasterLeague
             if ($playerCardRule->getMasterLeague() === $this) {
                 $playerCardRule->setMasterLeague(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addMasterLeague($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeMasterLeague($this);
         }
 
         return $this;

@@ -49,11 +49,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Team::class, mappedBy: 'owner', orphanRemoval: true)]
     private Collection $teams;
 
+    /**
+     * @var Collection<int, MasterLeague>
+     */
+    #[ORM\ManyToMany(targetEntity: MasterLeague::class, inversedBy: 'users')]
+    private Collection $masterLeague;
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable;
         $this->updatedAt = new \DateTimeImmutable;
+        $this->masterLeague = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +200,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $team->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MasterLeague>
+     */
+    public function getMasterLeague(): Collection
+    {
+        return $this->masterLeague;
+    }
+
+    public function addMasterLeague(MasterLeague $masterLeague): static
+    {
+        if (!$this->masterLeague->contains($masterLeague)) {
+            $this->masterLeague->add($masterLeague);
+        }
+
+        return $this;
+    }
+
+    public function removeMasterLeague(MasterLeague $masterLeague): static
+    {
+        $this->masterLeague->removeElement($masterLeague);
 
         return $this;
     }

@@ -4,13 +4,23 @@
   Reglas de cartas
 </a>
 <a class="btn btn-primary">
-  Añadir usuario
+  Participantes
+</a>
+<a href="{{ path('create_ml_invitation', { id: ml.id }) }}" class="btn btn-accent">
+  Crear invitación
 </a>
 {% endblock %}
 
 {% block drawer_content_title %}{{ ml.title }}{% endblock %}
 
 {% block drawer_content %}
+{% for message in app.flashes('error') %}
+  <div class="py-4">{% include "components/error_alert.html.twig" %}</div>
+{% endfor %}
+{% for message in app.flashes('success') %}
+  <div class="py-4">{% include "components/success_alert.html.twig" %}</div>
+{% endfor %}
+
 <div class="flex gap-8 flex-wrap">
   <div class="card w-96 h-56 bg-base-200 flex-1 cursor-pointer">
     <div class="card-body">
