@@ -38,7 +38,7 @@ class InvitationController extends AbstractController
         ]);
     }
 
-    #[Route('/invitation/{token}', name: 'use_ml_invitation', methods: ['POST'])]
+    #[Route('/invitation/{token}', name: 'use_ml_invitation', methods: ['GET'])]
     public function use(MasterLeagueInvitation $masterLeagueInvitation): Response
     {
         try {
