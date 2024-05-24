@@ -48,7 +48,7 @@ class InvitationService
 
     public function validateInvitation(MasterLeagueInvitation $invitation): void
     {
-        if ($invitation->getExpirationDate() > new \DateTimeImmutable()) {
+        if ($invitation->getExpirationDate() < new \DateTimeImmutable()) {
             throw new \Exception('Invitation expired');
         }
 
